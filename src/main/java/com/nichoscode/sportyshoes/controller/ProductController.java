@@ -1,5 +1,6 @@
 package com.nichoscode.sportyshoes.controller;
 
+import com.nichoscode.sportyshoes.enums.Category;
 import com.nichoscode.sportyshoes.model.Product;
 import com.nichoscode.sportyshoes.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -29,6 +30,23 @@ public class ProductController {
         Product product = productService.getProductById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found for this id :: " + id));
         return ResponseEntity.ok().body(product);
+    }
+
+    @GetMapping("/category/{category}")
+    public List<Product> getProductsByCategory(@PathVariable Category category) {
+        return productService.getProductsByCategory(category);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<Product> getProductByName(@PathVariable String name) {
+        Product product = productService.getProductByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with name :: " + name));
+        return ResponseEntity.ok().body(product);
+    }
+
+    @GetMapping("/brand/{brand}")
+    public List<Product> getProductsByBrand(@PathVariable String brand) {
+        return productService.getProductsByBrand(brand);
     }
 
     @PostMapping

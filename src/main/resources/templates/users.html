@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Users</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+	rel="stylesheet">
+<style>
+.top-border {
+	border-top: 1px solid #1f2937;
+}
+</style>
+</head>
+<body>
+	<div th:replace="navbar :: navbar(currentPage='users')"></div>
+	<div class="container mx-auto mt-8">
+		<h1 class="text-3xl font-bold">Users Page</h1>
+		<div class="top-border mt-4 py-4">
+			<div class="flex items-center justify-between mb-4">
+				 <form th:action="@{/admin/users}" method="get" class="flex items-center justify-between mb-4">
+                <div>
+                    <input type="email" name="email" class="border border-gray-300 rounded-md px-4 py-2 mr-2" placeholder="Search by Email">
+                  
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+                </div>
+            </form>
+
+
+			</div>
+		</div>
+		<table class="table-auto w-full mt-4">
+			<thead>
+				<tr>
+					<th class="px-4 py-2">ID</th>
+					<th class="px-4 py-2">Full Name</th>
+					<th class="px-4 py-2">Email</th>
+					<th class="px-4 py-2">Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td class="border px-4 py-2" th:text="${user.id}">ID</td>
+					<td class="border px-4 py-2" th:text="${user.fullName}">Full Name</td>
+					<td class="border px-4 py-2" th:text="${user.email}">Email</td>
+					<td class="border px-4 py-2" th:text="${user.role}">Role</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>

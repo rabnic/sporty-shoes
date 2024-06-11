@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="navbar :: navbar(currentPage='cart')"></div>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold mb-6">Cart Page</h1>
+        <div class="overflow-x-auto">
+        	<div th:if="${#lists.isEmpty(cart)}">
+        		<p>Your cart is empty.</p>
+    		</div>
+            <table th:unless="${#lists.isEmpty(cart)}" class="min-w-full bg-white border border-gray-300" >
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border">Picture</th>
+                        <th class="px-4 py-2 border">Product Name</th>
+                        <th class="px-4 py-2 border">Brand</th>
+                        <th class="px-4 py-2 border">Quantity</th>
+                        <th class="px-4 py-2 border">Price</th>
+                        <th class="px-4 py-2 border">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${cart}">
+                        <td class="px-4 py-2 border flex items-center">
+                            <img th:src="@{${item.product.imageLink}}" alt="Product Image" class="h-16 w-16 object-cover">
+                        </td>
+                        <td class="px-4 py-2 border" th:text="${item.product.name}"></td>
+                        <td class="px-4 py-2 border" th:text="${item.product.brand}"></td>
+                        <td class="px-4 py-2 border" th:text="${item.quantity}"></td>
+                        <td class="px-4 py-2 border" th:text="${item.product.price}"></td>
+                        <td class="px-4 py-2 border" th:text="${item.getTotal()}"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="px-4 py-2 text-right font-bold">Grand Total:</td>
+                        <td class="px-4 py-2 border font-bold" th:text="'R' + ${grandTotal}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-6 text-right">
+            <a href="/checkout" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Checkout</a>
+        </div>
+    </div>
+</body>
+</html>

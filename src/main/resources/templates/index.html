@@ -2,19 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sporty Shoes</title>
+    <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+  }
+        main {
+        	z-index: -5;
+            background-image: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, .6)), url("https://images.unsplash.com/photo-1613972798457-45fc5237ae32?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        }
+    </style>
 </head>
 <body>
-    <header class="bg-green-500 text-white p-4">
-        <h1 class="text-3xl">Sporty Shoes</h1>
-    </header>
-    <main class="p-4">
-        <h2>Welcome to Sporty Shoes</h2>
-        <p>Discover the best sports shoes for all your needs.</p>
-    </main>
-    <footer class="bg-orange-500 text-white p-4">
-        <p>&copy; 2024 Sporty Shoes</p>
-    </footer>
+    <nav th:replace="navbar :: navbar(currentPage='home')"></nav>
+  <main class="w-full bg-center bg-cover h-full"
+    >
+    <div class="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50">
+      <div class="text-center">
+        <div class="container px-4 mx-auto">
+          <div class="max-w-4xl mx-auto text-center">
+            <h2 class="mt-8 mb-6 text-4xl lg:text-5xl font-bold text-gray-100">Welcome To SportyShoes.</h2>
+            <p class="max-w-3xl mx-auto mb-10 text-lg text-gray-300">
+              Find the perfect style that matches your sporty vibe!
+            </p>
+            <a class="inline-block w-full md:w-auto mb-4 md:mr-6 py-3 px-5 text-sm font-bold uppercase border-2 border-transparent bg-green-200 rounded hover:bg-gray-100 text-gray-800 transition duration-200"
+              href="#" th:href="@{/shop}">Buy Your Shoes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
+

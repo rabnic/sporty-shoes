@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="bg-gray-800 p-4">
+            <div class="container mx-auto flex items-center justify-between">
+                <!-- Logo -->
+                <div class="text-white text-lg font-bold">
+                    <a href="#" th:href="@{/}" class="text-yellow-200">SportyShoes</a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="flex space-x-4">
+                    <a href="#" th:href="@{/}" class="text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'home' ? 'bg-gray-700' : ''}">Home</a>
+                    <a href="#" th:href="@{/shop}" class="text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'shop' ? 'bg-gray-700' : ''}">Shop</a>
+                    <a href="#" sec:authorize="isAuthenticated()" th:href="@{/cart}" class="relative text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'cart' ? 'bg-gray-700' : ''}">
+					    Cart
+					    <span class="absolute -top-1 -right-1 text-yellow-200 text-xs px-2 py-1 rounded-full">
+					        <span th:text="${cartQuantity}" class="text-yellow-200">0</span>
+					    </span>
+					</a>
+                    
+                    <a href="#" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/products}" class="text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'products' ? 'bg-gray-700' : ''}">Products</a>
+                    <a href="#" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/users}" class="text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'users' ? 'bg-gray-700' : ''}">Users</a>
+                    <a href="#" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/report}" class="text-white hover:bg-gray-700 px-3 py-2 rounded" th:classappend="${currentPage == 'report' ? 'bg-gray-700' : ''}">Report</a>
+                </div>
+           
+                <div>
+                <span sec:authorize="isAuthenticated() " class="text-gray-300 text-sm">
+				       
+				        Welcome, <span sec:authentication="name"></span>
+   				 </span>
+                    
+                    
+                <a sec:authorize="isAuthenticated() == false" th:href="@{/login}" class="text-green-300 hover:bg-gray-700 px-3 py-2 rounded">Login</a>
+                <a sec:authorize="isAuthenticated() == true" th:href="@{/logout}" class="text-red-300 hover:bg-gray-700 px-3 py-2 rounded">Logout</a>
+            
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>

@@ -1,14 +1,12 @@
 package com.nichoscode.sportyshoes.service;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.nichoscode.sportyshoes.enums.Category;
 import com.nichoscode.sportyshoes.model.Product;
 import com.nichoscode.sportyshoes.repository.ProductRepository;
-
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -49,5 +47,20 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Product not found for this id :: " + id));
         productRepository.delete(product);
     }
-}
 
+    public List<Product> getProductsByCategory(Category category) {
+        return productRepository.findAllByCategory(category);
+    }
+
+    public Optional<Product> getProductByName(String name) {
+        return productRepository.findByName(name);
+    }
+    
+    public List<Product> findByNameOrCategory(String name, Category category) {
+        return productRepository.findByNameOrCategory(name, category);
+    }
+
+    public List<Product> getProductsByBrand(String brand) {
+        return productRepository.findAllByBrand(brand);
+    }
+}

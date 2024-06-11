@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Products</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+	rel="stylesheet">
+<style>
+.top-border {
+	border-top: 1px solid #1f2937;
+}
+</style>
+</head>
+<body>
+	<div th:replace="navbar :: navbar(currentPage='products')"></div>
+	<div class="container mx-auto mt-8">
+		<h1 class="text-3xl font-bold">Products Page</h1>
+		<div class="top-border mt-4 py-4">
+			<div class="flex items-center justify-between mb-4">
+
+<!-- 				<div> -->
+<!-- 					<input type="text" -->
+<!-- 						class="border border-gray-300 rounded-md px-4 py-2 mr-2" -->
+<!-- 						placeholder="Search by Name"> <select -->
+<!-- 						class="border border-gray-300 rounded-md px-4 py-2 mr-2"> -->
+<!-- 						<option value="" disabled selected>Filter by Category</option> -->
+<!-- 						Add categories here -->
+<!-- 						<option -->
+<!-- 							th:each="category : ${T(com.nichoscode.sportyshoes.enums.Category).values()}" -->
+<!-- 							th:value="${category}" th:text="${category}"></option> -->
+<!-- 					</select> -->
+
+<!-- 					<button -->
+<!-- 						class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button> -->
+<!-- 				</div> -->
+				 <form th:action="@{/admin/products}" method="get" class="flex items-center justify-between mb-4">
+                <div>
+                    <input type="text" name="name" class="border border-gray-300 rounded-md px-4 py-2 mr-2" placeholder="Search by Name">
+                    <select name="category" class="border border-gray-300 rounded-md px-4 py-2 mr-2">
+                        <option value="" disabled selected>Filter by Category</option>
+                        <option th:each="category : ${T(com.nichoscode.sportyshoes.enums.Category).values()}" th:value="${category}" th:text="${category}"></option>
+                    </select>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filter</button>
+                </div>
+            </form>
+
+				<a href="#" th:href="@{/admin/products/create}"
+					class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+					Add New Product </a>
+
+			</div>
+		</div>
+		<table class="table-auto w-full mt-4">
+			<thead>
+				<tr>
+					<th class="px-4 py-2">ID</th>
+					<th class="px-4 py-2">Name</th>
+					<th class="px-4 py-2">Brand</th>
+					<th class="px-4 py-2">Price</th>
+					<th class="px-4 py-2">Image Link</th>
+					<th class="px-4 py-2">Category</th>
+					<th class="px-4 py-2">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td class="border px-4 py-2" th:text="${product.id}">ID</td>
+					<td class="border px-4 py-2" th:text="${product.name}">Name</td>
+					<td class="border px-4 py-2" th:text="${product.brand}">Brand</td>
+					<td class="border px-4 py-2" th:text="'R' + ${product.price}">Price</td>
+					<td class="border px-4 py-2" th:text="${product.imageLink}">Image
+						Link</td>
+					<td class="border px-4 py-2" th:text="${product.category}">Category</td>
+					<td class="border px-4 py-2 flex items-center justify-between">
+						<a href="#" th:href="@{/admin/products/edit/{id}(id=${product.id})}" 
+						class="text-white bg-blue-600 hover:bg-blue-900 px-2 py-1 rounded">Edit</a>
+						<a href="#" th:href="@{/admin/products/delete/{id}(id=${product.id})}" 
+						class="text-white bg-red-600 hover:bg-red-900 px-2 py-1 rounded">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>
